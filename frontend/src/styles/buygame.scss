@@ -1,0 +1,42 @@
+.buygame {
+  padding: 100px;
+
+  &__state1 {
+    tbody {
+      tr {
+        &:hover {
+          cursor: pointer;
+          background-color: #8fff93;
+        }
+      }
+    }
+  }
+
+  &__state2 {
+    .gameRow {
+      &:hover:not(.gameRow--selected) {
+        background-color: #4acfff;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &--selected {
+        background-color: darken(#4acfff, 25);
+      }
+    }
+
+    &__err {
+      margin-top: 10px;
+    }
+
+    &__buttons {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 20px;
+    }
+  }
+}

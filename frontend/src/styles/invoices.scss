@@ -1,0 +1,12 @@
+.invoices {
+  padding: 100px;
+
+  tbody {
+    tr {
+      &:hover {
+        cursor: pointer;
+        background-color: #8fff93;
+      }
+    }
+  }
+}

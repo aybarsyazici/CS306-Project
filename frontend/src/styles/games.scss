@@ -16,3 +16,14 @@
   align-items: flex-end;
   justify-content: flex-end;
 }
+
+.userTable {
+  tbody {
+    tr {
+      &:hover {
+        cursor: pointer;
+        background-color: #8fff93;
+      }
+    }
+  }
+}
