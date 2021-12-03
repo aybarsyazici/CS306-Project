@@ -1,0 +1,18 @@
+.App {
+  padding: 100px;
+}
+
+.deleteIcon {
+  &:hover {
+    cursor: pointer;
+
+    fill: red;
+  }
+}
+
+.search {
+  display: flex;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
