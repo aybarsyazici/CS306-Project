@@ -1,7 +1,6 @@
 
 import { Api } from './environment';
 import { useState, useEffect } from 'react';
-import { User } from './types/user';
 import {TextField, Checkbox, FormGroup, FormControlLabel, Alert } from '@mui/material';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import DateAdapter from '@mui/lab/AdapterDayjs';
@@ -20,7 +19,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Search } from '@mui/icons-material';
 
 function Games() {
 
