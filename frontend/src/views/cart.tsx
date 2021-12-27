@@ -14,6 +14,7 @@ import { Alert } from "@mui/material";
 import { Api } from "../environment";
 import {User} from '../types/user'
 import { useEffect, useState } from "react";
+import { observable, runInAction } from "mobx";
 
 interface CartPageProps {}
 
@@ -36,13 +37,15 @@ const CartPage = observer(() => {
   const buyGame = () => {
     const data = { user: castedUser, games: userStore.gameList };
     console.log(data)
-    // Api.post("/buygame", data)
-    //   .then((e) => {
-    //     console.log(e);
-    //   })
-    //   .catch((e) => {
-    //     seterr("Some error occured..." + e);
-    //   });
+    Api.post("/buygame", data)
+      .then((e) => {
+        runInAction(() => {
+          userStore.cart = observable.map();
+        })
+      })
+      .catch((e) => {
+        seterr("Some error occured..." + e);
+      });
   };
 
   return (

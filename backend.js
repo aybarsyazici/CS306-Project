@@ -270,6 +270,8 @@ app.post('/getUnownedGames', (req, res)=>{
 
 app.post('/searchUnownedGames', (req,res)=>{
 
+    const userId = req.body.userId;
+
     const query = "SELECT * " +
     "FROM GAMES " +
     "WHERE gameId NOT IN "+
