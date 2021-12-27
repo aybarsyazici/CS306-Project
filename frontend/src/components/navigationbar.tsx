@@ -8,9 +8,11 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 
-interface NavbarProps {}
+interface NavbarProps {
+  setSearchVar: React.Dispatch<React.SetStateAction<string>>;
+}
 
-export const NavigationBar: FunctionComponent<NavbarProps> = () => {
+export const NavigationBar: FunctionComponent<NavbarProps> = ({setSearchVar}) => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -34,10 +36,12 @@ export const NavigationBar: FunctionComponent<NavbarProps> = () => {
           </Nav>
           <Form className="d-flex">
             <FormControl
-              type="search"
+              type="text"
               placeholder="Search a game"
               className="me-2"
               aria-label="Search"
+
+              onChange={(e)=>setSearchVar(e.currentTarget.value)}
             />
           </Form>
         </Navbar.Collapse>
