@@ -54,9 +54,8 @@ const GameList = memo((props:{games: Game[]}) => {
   );
 });
 
-export const HomePage = observer(() => {
+export const HomePage = () => {
 
-  const user = useStore();
   
   const [search, setSearch] = useState("");
 
@@ -81,8 +80,8 @@ export const HomePage = observer(() => {
       <Container style={{ marginTop: "2em" }}>
         <GameList games={games}/>
       </Container>
-      </>
+    </>
   );
-});
+};
 
 export default(HomePage);
