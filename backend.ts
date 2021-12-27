@@ -1,7 +1,8 @@
-const express = require('express');
-var bodyParser = require('body-parser')
-const cors = require('cors');
-const mysql = require('mysql');
+import { Request, Response, RequestHandler } from 'express';
+import * as express from "express";
+import bodyParser = require('body-parser')
+import cors = require('cors');
+import mysql = require('mysql');
 
 const app = express();
 var jsonParser = bodyParser.json()
@@ -28,8 +29,7 @@ app.use(cors());
 
 
 
-app.post('/addgame',jsonParser, (req,res)=>{
-    console.log(req.body);
+app.post('/addgame',jsonParser, (req: Request,res: Response)=>{
 
     connection.query("INSERT INTO GAMES(name,isDiscounted,releaseDate, discountRatio, genre, cost) VALUES(" + "'" + 
     req.body.name + "'" + "," + 
@@ -44,7 +44,7 @@ app.post('/addgame',jsonParser, (req,res)=>{
     })
 })
 
-app.get('/getallgames', (req,res) => {
+app.get('/getallgames', (req: Request,res: Response) => {
     connection.query('SELECT * FROM GAMES', (err, results)=>{
 
         if(err){
@@ -54,12 +54,12 @@ app.get('/getallgames', (req,res) => {
         
         return res.json({
             data: results
-        })
+        })  
     });
 })
 
 
-app.post('/deletegame',jsonParser, (req,res) =>{
+app.post('/deletegame',jsonParser, (req: Request,res: Response) =>{
     console.log(req.body);
 
     connection.query("DELETE FROM GAMES WHERE gameId="+req.body.gameId, (err,results)=>{
@@ -72,7 +72,7 @@ app.post('/deletegame',jsonParser, (req,res) =>{
     });
 })
 
-app.get('/searchgame', (req, res)=>{
+app.get('/searchgame', (req: Request,res: Response)=>{
 
     connection.query("SELECT * FROM GAMES WHERE name LIKE '%" + req.query.gameName + "%'", (err,results)=>{
         if(err){
@@ -88,7 +88,7 @@ app.get('/searchgame', (req, res)=>{
 
 /* USER STUFF */
 
-app.post('/adduser',jsonParser, (req,res)=>{
+app.post('/adduser',jsonParser, (req: Request,res: Response)=>{
     console.log(req.body);
 
     connection.query("INSERT INTO USERS(email,username,password) VALUES(" + "'" + 
@@ -104,7 +104,7 @@ app.post('/adduser',jsonParser, (req,res)=>{
 })
 
 
-app.get('/searchuser', (req, res)=>{
+app.get('/searchuser', (req: Request,res: Response)=>{
 
     connection.query("SELECT * FROM USERS WHERE username LIKE '%" + req.query.username + "%'", (err,results)=>{
         if(err){
@@ -118,7 +118,7 @@ app.get('/searchuser', (req, res)=>{
     })
 })
 
-app.get('/getallusers', (req,res) => {
+app.get('/getallusers', (req: Request,res: Response) => {
     connection.query('SELECT * FROM USERS', (err, results)=>{
 
         if(err){
@@ -132,7 +132,7 @@ app.get('/getallusers', (req,res) => {
     });
 });
 
-app.post('/deleteuser',jsonParser, (req,res) =>{
+app.post('/deleteuser',jsonParser, (req: Request,res: Response) =>{
     console.log(req.body);
 
     connection.query("DELETE FROM USERS WHERE userId="+req.body.userid, (err,results)=>{
@@ -145,7 +145,7 @@ app.post('/deleteuser',jsonParser, (req,res) =>{
     });
 })
 
-app.post('/buygame', (req,res)=>{
+app.post('/buygame', (req: Request,res: Response)=>{
 
     let totalCost = 0
     var today = new Date();
@@ -211,7 +211,7 @@ app.post('/buygame', (req,res)=>{
 })
 
 
-app.get('/getInvoices', (req, res)=>{
+app.get('/getInvoices', <RequestHandler>((req,res) => {
 
     console.log(typeof req.query.userId)
     connection.query("SELECT * FROM INVOICES WHERE userId=" + req.query.userId, (err,results)=>{
@@ -224,9 +224,9 @@ app.get('/getInvoices', (req, res)=>{
             data: results
         })
     })
-})
+}))
 
-app.post('/getUnownedGames', (req,res)=>{
+app.post('/getUnownedGames', (req: Request, res: Response)=>{
     const userId = req.body.userId;
 
     const query = "SELECT * " +

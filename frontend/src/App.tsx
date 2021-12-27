@@ -6,6 +6,8 @@ import BuyGame from './buygame';
 import Games from './games';
 import Invoices from './invoices';
 import Users from './users';
+import { HomePage } from './views/home';
+import './App.scss';
  
   
   export function App() {
@@ -14,7 +16,7 @@ import Users from './users';
         <Routes>
           <Route
             path="/"
-            element={<Games />}
+            element={<HomePage />}
           />
           <Route
             path="/games"
