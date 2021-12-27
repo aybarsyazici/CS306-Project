@@ -1,5 +1,12 @@
 import { FunctionComponent } from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  FormControl,
+  Nav,
+  Navbar,
+  NavDropdown,
+} from "react-bootstrap";
 
 interface NavbarProps {}
 
@@ -25,6 +32,14 @@ export const NavigationBar: FunctionComponent<NavbarProps> = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          <Form className="d-flex">
+            <FormControl
+              type="search"
+              placeholder="Search a game"
+              className="me-2"
+              aria-label="Search"
+            />
+          </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>
