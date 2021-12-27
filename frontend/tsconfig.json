@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "target": "es5",
+    "downlevelIteration": true,
     "lib": [
       "dom",
       "dom.iterable",
