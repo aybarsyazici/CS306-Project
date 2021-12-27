@@ -103,6 +103,28 @@ app.post('/adduser',jsonParser, (req,res)=>{
     })
 })
 
+app.post('/login', (req, res) => {
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    connection.query(`SELECT * FROM USERS WHERE EMAIL="${email}" and password="${password}"`, (err, results) => {
+        if (err) {
+            console.log(err?.sqlMessage);
+            return res.send(400);
+        }
+
+        if (results === []) {
+            res.send(404);
+        }
+        else {
+            return res.json({
+                data: results
+            })
+        }
+    })
+
+})
 
 app.get('/searchuser', (req,res)=>{
 
@@ -233,6 +255,25 @@ app.post('/getUnownedGames', (req, res)=>{
     "FROM GAMES " +
     "WHERE gameId NOT IN "+
     `(SELECT gameId FROM UserOwnsGame WHERE userId=${userId})`;
+
+    connection.query(query, (err,results)=>{
+        if(err){
+            console.log(err.sqlMessage);
+            return res.status(400).send(err.sqlMessage);
+        }
+
+        return res.json({
+            data: results
+        })
+    })
+})
+
+app.post('/searchUnownedGames', (req,res)=>{
+
+    const query = "SELECT * " +
+    "FROM GAMES " +
+    "WHERE gameId NOT IN "+
+    `(SELECT gameId FROM UserOwnsGame WHERE userId=${userId}) and name LIKE "%${req.body.gameName}%"`;
 
     connection.query(query, (err,results)=>{
         if(err){
