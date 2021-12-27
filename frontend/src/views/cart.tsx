@@ -34,13 +34,15 @@ const CartPage = observer(() => {
   }, [castedUser])
 
   const buyGame = () => {
-    Api.post("/buygame", { user: castedUser, games: userStore.gameList })
-      .then((e) => {
-        console.log(e);
-      })
-      .catch((e) => {
-        seterr("Some error occured..." + e);
-      });
+    const data = { user: castedUser, games: userStore.gameList };
+    console.log(data)
+    // Api.post("/buygame", data)
+    //   .then((e) => {
+    //     console.log(e);
+    //   })
+    //   .catch((e) => {
+    //     seterr("Some error occured..." + e);
+    //   });
   };
 
   return (
@@ -91,6 +93,7 @@ const CartPage = observer(() => {
           <Button
             variant="success"
             style={{ width: "120px", marginTop: "1em" }}
+            onClick={(e)=>{buyGame()}}
           >
             BUY GAME
           </Button>

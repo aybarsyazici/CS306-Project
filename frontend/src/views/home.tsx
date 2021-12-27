@@ -61,14 +61,16 @@ export const HomePage = () => {
 
   const [games, setGames] = useState<Game[]>([]);
 
+  const userStore = useStore();
+
   useEffect(() => {
     if (search === "") {
-      Api.get("/getallgames").then((response) => {
+      Api.post("/getUnownedGames", {userId: userStore.userid}).then((response) => {
         setGames(response.data.data);
       });
     }
     else {
-      Api.get('/searchgame?gameName='+search).then(e=>{
+      Api.post('/searchUnownedGames', {userId: userStore.userid, gameName: search}).then(e=>{
         setGames(e.data.data);
       })
     }
