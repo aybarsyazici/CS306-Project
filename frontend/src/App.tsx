@@ -8,6 +8,7 @@ import Invoices from './invoices';
 import Users from './users';
 import { HomePage } from './views/home';
 import './App.scss';
+import CartPage from './views/cart';
  
   
   export function App() {
@@ -19,19 +20,23 @@ import './App.scss';
             element={<HomePage />}
           />
           <Route
-            path="/games"
+            path="/cart"
+            element={<CartPage />}
+          />
+          <Route
+            path="/admin-games"
             element={<Games />}
           />
            <Route
-            path="/users"
+            path="/admin-users"
             element={<Users />}
           />
           <Route
-            path="/buygame"
+            path="/admin-buygame"
             element={<BuyGame />}
           />
           <Route
-            path="/invoices"
+            path="/admin-invoices"
             element={<Invoices />}
           />
         </Routes>

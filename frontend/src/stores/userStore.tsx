@@ -1,25 +1,25 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 import { createContext, FC, useContext } from "react";
 import { Game } from "../types/game";
 
 class UserStore{
     username: string = "defualt username";
-    cart: number[] = [];
+    cart: Map<number, Game> = observable.map();
 
     constructor() {
         makeAutoObservable(this);
     }
 
     addToCart(game: Game) {
-        const index = this.cart.indexOf(game.gameid);
-        if(index < 0)
-            this.cart.push(game.gameid);
+        this.cart.set(game.gameid, game)
     }
     
     removeFromCart(game: Game) {
-        const index = this.cart.indexOf(game.gameid);
-        if(index > -1 )
-            this.cart.splice(index,1)
+        this.cart.delete(game.gameid);
+    }
+
+    get gameList() {
+        return [...this.cart.values()];
     }
 }
 
