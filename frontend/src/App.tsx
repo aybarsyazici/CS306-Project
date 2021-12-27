@@ -9,6 +9,7 @@ import Users from './users';
 import { HomePage } from './views/home';
 import './App.scss';
 import CartPage from './views/cart';
+import LoginPage from './views/login';
  
   
   export function App() {
@@ -38,6 +39,10 @@ import CartPage from './views/cart';
           <Route
             path="/admin-invoices"
             element={<Invoices />}
+          />
+          <Route
+            path="/login"
+            element={<LoginPage />}
           />
         </Routes>
       </Router>
