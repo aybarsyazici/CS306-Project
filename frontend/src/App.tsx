@@ -12,6 +12,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "./stores/userStore";
 import MyGames from "./views/mygames";
 import MyInvoices from "./views/myinvoices";
+import RegisterPage from "./views/register";
 
 export const App = observer(() => {
   const user = useStore();
@@ -25,19 +26,20 @@ export const App = observer(() => {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/my-games" element={<MyGames />} />
             <Route path="/my-invoices" element={<MyInvoices />} />
-            {
-              user.isAdmin && (
-                <>
+            {user.isAdmin && (
+              <>
                 <Route path="/admin-games" element={<Games />} />
                 <Route path="/admin-users" element={<Users />} />
                 <Route path="/admin-buygame" element={<BuyGame />} />
                 <Route path="/admin-invoices" element={<Invoices />} />
-                </>
-              )
-            }
+              </>
+            )}
           </>
         ) : (
-          <Route path="*" element={<LoginPage />} />
+          <>
+            <Route path="/register" element={<RegisterPage/>} />
+            <Route path="*" element={<LoginPage />} />
+          </>
         )}
       </Routes>
     </Router>

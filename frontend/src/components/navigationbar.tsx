@@ -42,11 +42,14 @@ export const NavigationBar: FunctionComponent<NavbarProps> = observer(
               <ShoppingCart></ShoppingCart>
             </Link>
             {
-              userStore.isAdmin && (
+              userStore.gameList.length
+            }
+            {
+              userStore.isAdmin ? (
                 <Link to="/admin-games">
                 <AdminPanelSettings/>
                 </Link>
-              )
+              ) : null
             }
             <Logout
               className="logoutButton"

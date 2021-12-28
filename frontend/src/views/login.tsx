@@ -5,6 +5,7 @@ import { Api } from "../environment";
 import { useStore } from "../stores/userStore";
 import { runInAction } from "mobx";
 import { User } from "../types/user";
+import { Link, useNavigate } from "react-router-dom";
 
 interface LoginPageProps {}
 
@@ -14,7 +15,7 @@ const LoginForm = React.memo(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const userStore = useStore();
-
+  const navigate = useNavigate();
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -23,6 +24,7 @@ const LoginForm = React.memo(() => {
       console.log(response.data.data[0]);
       const tempUser = response.data.data[0] as User;
       runInAction(() => { userStore.email = email; userStore.userid = tempUser.userid; userStore.username = tempUser.username; userStore.isAdmin = tempUser.isAdmin});
+      navigate("/");
     }).catch((err) => {
       console.log(err);
     })
@@ -45,6 +47,11 @@ const LoginForm = React.memo(() => {
             </div>
             <button type="submit" className="btn btn-primary" onClick={(e)=>{handleLogin(e)}}>Submit</button>
           </form>
+          <p>Not a member? {' '}
+            <Link to='/register'>
+              Sign up.
+          </Link>
+          </p>
         </Col>
       <Col></Col>
     </Row>
