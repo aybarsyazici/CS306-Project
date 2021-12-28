@@ -1,4 +1,4 @@
-import { Logout, ShoppingCart } from "@mui/icons-material";
+import { AdminPanelSettings, Logout, ShoppingCart } from "@mui/icons-material";
 import { observable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
 import { FunctionComponent } from "react";
@@ -26,6 +26,7 @@ export const NavigationBar: FunctionComponent<NavbarProps> = observer(
             <Nav className="me-auto">
               <Link to="/">Home</Link>
               <Link to="/my-games">My Games</Link>
+              <Link to="/my-invoices">My Invoices</Link>
             </Nav>
             Welcome {userStore.username}
             <Form className="d-flex">
@@ -40,6 +41,13 @@ export const NavigationBar: FunctionComponent<NavbarProps> = observer(
             <Link to="/cart">
               <ShoppingCart></ShoppingCart>
             </Link>
+            {
+              userStore.isAdmin && (
+                <Link to="/admin-games">
+                <AdminPanelSettings/>
+                </Link>
+              )
+            }
             <Logout
               className="logoutButton"
               onClick={(e) => {

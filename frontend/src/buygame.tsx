@@ -13,6 +13,7 @@ import { Game } from './types/game';
 import { Alert, TextField } from '@mui/material';
 import { Button } from '@material-ui/core';
 import { CheckCircleOutline } from '@mui/icons-material';
+import { AdminNavBar } from './components/adminNavbar'
   
 export function BuyGame() {
 
@@ -97,6 +98,8 @@ export function BuyGame() {
     }, [search])
 
     return (
+        <>
+        <AdminNavBar/>
         <div className="buygame">
         <TextField label="Search" color="warning" focused value={search} onChange={(e)=>setsearch(e.target.value)} />
         { state === 1 && (
@@ -198,7 +201,8 @@ export function BuyGame() {
                 Order successfull!
             </Alert>
         )}
-        </div>
+            </div>
+            </>
     );
 }
   

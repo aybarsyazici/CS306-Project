@@ -1,0 +1,10 @@
+.invoiceRow{
+    &:hover:not(.invoiceRow--active) {
+        cursor: pointer;
+        background-color: #8fff93;
+    }
+
+    &--active{
+        background-color: lighten($color: #8fff93, $amount: 5);
+    }
+}

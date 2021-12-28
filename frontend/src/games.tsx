@@ -19,6 +19,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AdminNavBar from './components/adminNavbar';
 
 function Games() {
 
@@ -78,6 +79,8 @@ function Games() {
   }, [gameSearch]);
 
   return (
+    <>
+    <AdminNavBar/>
     <div className="App">
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
@@ -171,7 +174,8 @@ function Games() {
       </Table>
     </TableContainer>
     {gameArray && gameArray.length > 0 ? null : <Alert severity="error">No game found</Alert>}
-    </div>
+      </div>
+    </>
   );
 }
 

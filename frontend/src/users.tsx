@@ -16,6 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
+import AdminNavBar from './components/adminNavbar';
 
 function Users() {
 
@@ -61,6 +62,8 @@ function Users() {
   }, [userSearch]);
 
   return (
+    <>
+      <AdminNavBar/>
     <div className="App">
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
@@ -97,7 +100,9 @@ function Users() {
     <TextField label="Search a username" color="warning" focused value={userSearch} onChange={(e)=>setUserSearch(e.target.value)} />
     </div>
     <div className="userTable">
-    <TableContainer component={Paper}>
+          <TableContainer component={Paper}>
+          <Alert severity="info">Click on User to see invoices</Alert>
+            
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -113,7 +118,7 @@ function Users() {
               key={user.userid}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               onClick={(e)=>{
-                navigate('/invoices?userId='+user.userid);
+                navigate('/admin-invoices?userId='+user.userid);
               }}
             >
               <TableCell component="th" scope="row">
@@ -133,7 +138,8 @@ function Users() {
     </TableContainer>
     </div>
     {userArray && userArray.length > 0 ? null : <Alert severity="error">No user found</Alert>}
-    </div>
+      </div>
+      </>
   );
 }
 

@@ -9,6 +9,7 @@ class UserStore{
     email: string | null = null;
     password: string | null = null;
     cart: Map<number, Game> = observable.map();
+    isAdmin: boolean = false;
 
     constructor() {
         makeAutoObservable(this);

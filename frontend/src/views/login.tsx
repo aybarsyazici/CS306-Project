@@ -9,14 +9,6 @@ import { User } from "../types/user";
 interface LoginPageProps {}
 
 
-
-const Login = (details: any) => {
-  console.log(details);
-};
-const LogOut = (details: any) => {
-  console.log(details);
-};
-
 const LoginForm = React.memo(() => {
 
   const [email, setEmail] = useState("");
@@ -30,7 +22,7 @@ const LoginForm = React.memo(() => {
     Api.post('/login', { email: email, password: password }).then((response) => {
       console.log(response.data.data[0]);
       const tempUser = response.data.data[0] as User;
-      runInAction(() => { userStore.email = email; userStore.userid = tempUser.userid; userStore.username = tempUser.username});
+      runInAction(() => { userStore.email = email; userStore.userid = tempUser.userid; userStore.username = tempUser.username; userStore.isAdmin = tempUser.isAdmin});
     }).catch((err) => {
       console.log(err);
     })
@@ -63,22 +55,9 @@ const LoginForm = React.memo(() => {
 //export default login
 
 const LoginPage: FunctionComponent<LoginPageProps> = (prop) => {
-  const [user, setUser] = useState({ name: "yarrak", email: "" });
-  const [error, setError] = useState();
   return (
     <div>
-      {" "}
-      {user.email != "" ? (
-        <div>
-          className ="welcome"
-          <h2>
-            Welcome, <span> {user.name}</span>
-          </h2>
-          <Button>logout</Button>
-        </div>
-      ) : (
-        <LoginForm/>
-      )}
+      <LoginForm/>
     </div>
   );
 };

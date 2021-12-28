@@ -1,12 +1,10 @@
-.invoices {
-  padding: 100px;
+.invoiceRow{
+  &:hover:not(.invoiceRow--active) {
+      cursor: pointer;
+      background-color: #8fff93;
+  }
 
-  tbody {
-    tr {
-      &:hover {
-        cursor: pointer;
-        background-color: #8fff93;
-      }
-    }
+  &--active{
+      background-color: lighten($color: #8fff93, $amount: 5);
   }
 }

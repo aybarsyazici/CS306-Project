@@ -1,53 +1,49 @@
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { useState, useEffect, useMemo } from 'react';
-import { User } from './types/user';
-import { Api } from './environment';
-import './styles/invoices.scss'
-import { Game } from './types/game';
-import { Alert, TextField } from '@mui/material';
-import { Button } from '@material-ui/core';
-import { CheckCircleOutline } from '@mui/icons-material';
-import { InvoiceType } from './types/invoice';
-import { useLocation } from 'react-router-dom';
-import AdminNavBar from './components/adminNavbar';
-import { Container } from 'react-bootstrap';
 
-export function Invoices() {
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { observer } from "mobx-react-lite";
+import { Container } from "react-bootstrap";
+import NavigationBar from "../components/navigationbar";
+import { useStore } from "../stores/userStore";
+import Paper from "@mui/material/Paper";
+import { Api } from "../environment";
+import { useEffect, useState } from "react";
+import { InvoiceType } from "../types/invoice";
+import './myinvoices.scss'
+import { Game } from "../types/game";
+ 
+const MyInvoices = observer(() => {
 
-    const [invoicesArray, setInvoiceArray] = useState<InvoiceType[]>([]);
-    const [selectedInvoice, setSelectedInvoice] = useState<InvoiceType>();
-    const [invoiceGames, setInvoiceGames] = useState<Game[]>([]);
+    const userStore = useStore();
 
-    const { search } = useLocation(); 
+  const [invoiceList, setInvoiceList] = useState<InvoiceType[]>([]);
+  
+  const [selectedInvoice, setSelectedInvoice] = useState<InvoiceType>();
+  const [invoiceGames, setInvoiceGames] = useState<Game[]>([]);
 
-    const params = useMemo(() => new URLSearchParams(search), [search]);
 
     useEffect(() => {
-        const userId = params.get('userId');
-        Api.get('/getInvoices?userId='+userId).then((e)=>{
-            setInvoiceArray(e.data.data);
+        Api.get('/getInvoices?userId='+ userStore.userid).then((e) => {
+            setInvoiceList(e.data.data);
         });
     }, [])
-
-    useEffect(() => {
-        if(selectedInvoice?.invoiceId)
-          Api.post("/getInvoiceGames", { invoiceId: selectedInvoice?.invoiceId }).then((e) => {
-            setInvoiceGames(e.data.data);
-          })
-      },[selectedInvoice])
+  
+  useEffect(() => {
+    if(selectedInvoice?.invoiceId)
+      Api.post("/getInvoiceGames", { invoiceId: selectedInvoice?.invoiceId }).then((e) => {
+        setInvoiceGames(e.data.data);
+      })
+  },[selectedInvoice])
 
     return (
         <>
-  <AdminNavBar />
+  <NavigationBar />
       <Container>
-                <TableContainer component={Paper}>
-                <Alert severity="info">Click on Invoice to see the games</Alert>
+        <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -57,7 +53,7 @@ export function Invoices() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {invoicesArray.map((invoice) => (
+              {invoiceList.map((invoice) => (
                 <TableRow
                   key={invoice.invoiceId}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -109,8 +105,7 @@ export function Invoices() {
           )}
         </Container>        
         </>
-    );
-}
-  
-export default Invoices;
-  
+    )
+})
+ 
+export default MyInvoices;
