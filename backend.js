@@ -288,3 +288,46 @@ app.post('/searchUnownedGames', (req,res)=>{
         })
     })
 })
+
+app.post('/getOwnedGames', (req, res) => {
+    
+    const userId = req.body.userId;
+
+    console.log(req.body);
+
+    const query = `SELECT * FROM Games WHERE Games.gameId IN(SELECT gameid FROM UserOwnsGame WHERE UserOwnsGame.userid=${userId})`;
+
+    connection.query(query, (err, results) => {
+
+        if (err) {
+            console.log(err.sqlMessage);
+            return res.status(400).send(err.sqlMessage);
+        }
+
+
+        return res.json({
+            data: results
+        })
+    })
+    
+})
+
+app.post("/getInvoiceGames", (req, res) => {
+    
+    const invoiceId = req.body.invoiceId;
+
+    const query = `SELECT * FROM Games Where Games.gameId IN (SELECT gameId FROM invoicesgames WHERE invoicesGames.invoiceId=${invoiceId})`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.log(err.sqlMessage);
+            return res.status(400).send(err.sqlMessage);
+        }
+
+
+        return res.json({
+            data: results
+        })
+    })
+
+})
